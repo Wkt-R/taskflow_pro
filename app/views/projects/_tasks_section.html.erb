@@ -1,0 +1,22 @@
+<div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-lg">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-semibold text-white">Tasks</h2>
+    <%= link_to "/projects/#{project.id}/tasks/new", class: "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 flex items-center space-x-2" do %>
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      <span>New Task</span>
+    <% end %>
+  </div>
+
+  <% if project.tasks.any? %>
+    <div class="space-y-4">
+      <% project.tasks.recent.each do |task| %>
+        <%= render 'task_card', task: task, project: project %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-8">
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-8" 
+     data-controller="task-status" 
+     data-task-status-project-id-value="<%= @project.id %>">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <% if @project %>
+      <%= render 'header' %>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="<%= card_classes %>">
+            <h2 class="text-xl font-semibold text-white mb-4">Description</h2>
+            <%= @project.description.present? ? 
+                  content_tag(:p, @project.description, class: "text-gray-300 leading-relaxed") :
+                  content_tag(:p, "No description provided", class: "text-gray-500 italic") %>
+          </div>
+
+          <%= render 'progress_section' %>
+          <%= render 'tasks_section', project: @project %>
+        </div>
+
+        <div class="space-y-6">
+          <%= render 'project_details' %>
+          <%= render 'quick_actions' %>
+          <%= render 'project_stats' %>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'not_found' %>
+    <% end %>
+  </div>
+</div>

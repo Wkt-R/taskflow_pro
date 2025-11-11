@@ -1,0 +1,55 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-8">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-white">Edit Task</h1>
+      <p class="text-gray-400 mt-2">Update task in <%= @project.name %></p>
+    </div>
+
+    <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 shadow-lg">
+      <%= form_with(model: [@project, @task], url: "/projects/#{@project.id}/tasks/#{@task.id}", method: :patch, html: { class: "space-y-6" }) do |f| %>
+        <% if @task.errors.any? %>
+          <div class="bg-red-900/50 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
+            <h2 class="text-sm font-medium mb-2"><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+            <ul class="list-disc list-inside text-sm">
+              <% @task.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= f.label :title, class: "block text-sm font-medium text-gray-300 mb-2" %>
+          <%= f.text_field :title, class: "w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200", placeholder: "Enter task title" %>
+        </div>
+
+        <div>
+          <%= f.label :description, class: "block text-sm font-medium text-gray-300 mb-2" %>
+          <%= f.text_area :description, rows: 4, class: "w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200", placeholder: "Describe the task..." %>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :status, class: "block text-sm font-medium text-gray-300 mb-2" %>
+            <%= f.select :status, Task.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" %>
+          </div>
+
+          <div>
+            <%= f.label :priority, class: "block text-sm font-medium text-gray-300 mb-2" %>
+            <%= f.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] }, {}, class: "w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :duedate, class: "block text-sm font-medium text-gray-300 mb-2" %>
+          <%= f.date_field :duedate, class: "w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" %>
+        </div>
+
+        <div class="flex space-x-4 pt-6">
+          <%= link_to 'Cancel', "/projects/#{@project.id}", class: "flex-1 bg-gray-700 hover:bg-gray-600 text-white text-center py-3 px-4 rounded-lg font-medium transition-colors" %>
+          <%= f.submit 'Update Task', class: "flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 px-4 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 shadow-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

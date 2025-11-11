@@ -1,0 +1,39 @@
+<div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-lg">
+  <h2 class="text-xl font-semibold text-white mb-6">Quick Stats</h2>
+  
+  <div class="mb-6">
+    <h3 class="text-sm font-medium text-gray-300 mb-3">Projects by Status</h3>
+    <div class="space-y-2">
+      <% @project_status_counts.each do |status, count| %>
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400 text-sm"><%= status.humanize %></span>
+          <span class="text-white font-medium"><%= count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <h3 class="text-sm font-medium text-gray-300 mb-3">Tasks by Status</h3>
+    <div class="space-y-2">
+      <% @task_status_counts.each do |status, count| %>
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400 text-sm"><%= Task.statuses.key(status.to_i).humanize %></span>
+          <span class="text-white font-medium"><%= count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-medium text-gray-300 mb-3">Tasks by Priority</h3>
+    <div class="space-y-2">
+      <% @task_priority_counts.each do |priority, count| %>
+        <div class="flex justify-between items-center">
+          <span class="text-gray-400 text-sm"><%= Task.priorities.key(priority.to_i).humanize %></span>
+          <span class="text-white font-medium"><%= count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="task-card bg-gray-700 rounded-xl p-4 border border-gray-600 hover:border-green-400 transition-all duration-200 group" 
+     data-status="<%= task.status %>"
+     data-priority="<%= task.priority%>"
+     data-task-filters-target="taskCard" 
+     data-original-status="<%= task.status %>">
+     
+  <div class="flex items-start justify-between">
+    <div class="flex-1">
+      <div class="flex items-center space-x-3 mb-2">
+        <h3 class="text-lg font-medium text-white group-hover:text-green-400 transition-colors">
+          <%= task.title %>
+        </h3>
+        <div class="flex space-x-2">
+          <span data-task-status-target="status" 
+                data-task-id="<%= task.id %>"
+                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <%= task.status_badge_color %> text-white">
+            <%= task.status.humanize %>
+          </span>
+          
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <%= task.priority_badge_color %> text-white">
+            <%= task.priority.humanize %>
+          </span>
+        </div>
+      </div>
+      
+      <% if task.description.present? %>
+        <p class="text-gray-300 text-sm mb-3"><%= task.description %></p>
+      <% end %>
+
+      <div class="flex items-center space-x-4 text-sm text-gray-400">
+        <% if task.duedate.present? %>
+          <div class="flex items-center space-x-1">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span class="<%= 'text-red-400' if task.overdue? %><%= 'text-yellow-400' if task.due_soon? %>">
+              <%= task.duedate.strftime("%b %d, %Y") %>
+            </span>
+          </div>
+        <% end %>
+        <span>Created <%= time_ago_in_words(task.created_at) %> ago</span>
+      </div>
+
+      <div class="mt-3 flex space-x-2">
+        <select class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-1 text-white text-sm"
+                data-action="change->task-status#updateStatus"
+                data-task-id="<%= task.id %>"
+                data-project-id="<%= project.id %>">
+          <% Task.statuses.keys.each do |status| %>
+            <option value="<%= status %>" <%= 'selected' if task.status == status %>>
+              <%= status.humanize %>
+            </option>
+          <% end %>
+        </select>
+
+        <div class="flex space-x-1">
+          <%= link_to "Edit", edit_project_task_path(project, task), 
+                class: "px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-sm transition-colors" %>
+          <%= button_to "Delete", project_task_path(project, task), 
+                method: :delete,
+                class: "px-2 py-1 bg-red-600 hover:bg-red-500 text-white rounded text-sm transition-colors" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

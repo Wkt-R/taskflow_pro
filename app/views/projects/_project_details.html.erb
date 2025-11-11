@@ -1,0 +1,17 @@
+<div class="<%= card_classes %>">
+  <h3 class="text-lg font-semibold text-white mb-4">Project Details</h3>
+  <div class="space-y-3">
+    <% {
+      "Status" => @project.status.humanize,
+      "Created" => @project.created_at.strftime("%B %d, %Y"),
+      "Last Updated" => @project.updated_at.strftime("%B %d, %Y"),
+      "Duration" => "#{@project.days_since_created} days",
+      "Tasks" => content_tag(:span, @project.tasks.count, data: { task_status_target: "totalCount" })
+    }.each do |label, value| %>
+      <div>
+        <p class="text-sm text-gray-400"><%= label %></p>
+        <p class="text-white"><%= value %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

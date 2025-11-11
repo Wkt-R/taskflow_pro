@@ -1,0 +1,24 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.active-filter {
+  @apply bg-green-500 text-white;
+}
+
+.inactive-filter {
+  @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
+}
+
+.progress-bar-animated {
+  transition: width 0.5s ease-in-out;
+}
+
+.task-card {
+  transition: all 0.3s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,34 @@
+<div class="<%= card_classes %>" data-quick-stats>
+  <h3 class="text-lg font-semibold text-white mb-4">Quick Stats</h3>
+  <div class="space-y-2 text-sm">
+    <div class="flex justify-between text-gray-300">
+      <span>Tasks by Status:</span>
+      <span class="text-green-400 text-xs">Live Updates</span>
+    </div>
+    
+    <div class="flex justify-between text-gray-400">
+      <span>Backlog:</span>
+      <span data-status="backlog"><%= @project.tasks.where(status: 'backlog').count %></span>
+    </div>
+    
+    <div class="flex justify-between text-gray-400">
+      <span>To Do:</span>
+      <span data-status="todo"><%= @project.tasks.where(status: 'todo').count %></span>
+    </div>
+    
+    <div class="flex justify-between text-gray-400">
+      <span>In Progress:</span>
+      <span data-status="in_progress"><%= @project.tasks.where(status: 'in_progress').count %></span>
+    </div>
+    
+    <div class="flex justify-between text-gray-400">
+      <span>Review:</span>
+      <span data-status="review"><%= @project.tasks.where(status: 'review').count %></span>
+    </div>
+    
+    <div class="flex justify-between text-gray-400">
+      <span>Done:</span>
+      <span data-status="done"><%= @project.tasks.where(status: 'done').count %></span>
+    </div>
+  </div>
+</div>

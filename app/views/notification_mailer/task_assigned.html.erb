@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @user.first_name %>,</h1>
+    
+    <p>You have been assigned a new task in the project <strong><%= @project.name %></strong>:</p>
+    
+    <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+      <h2 style="margin-top: 0;"><%= @task.title %></h2>
+      <% if @task.description.present? %>
+        <p><%= @task.description %></p>
+      <% end %>
+      <p><strong>Priority:</strong> <%= @task.priority.humanize %></p>
+      <% if @task.duedate.present? %>
+        <p><strong>Due Date:</strong> <%= @task.duedate.strftime("%B %d, %Y") %></p>
+      <% end %>
+    </div>
+    
+    <p>
+      <%= link_to 'View Task', project_url(@project), style: "background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;" %>
+    </p>
+    
+    <p>Best regards,<br>The TaskFlow Pro Team</p>
+  </body>
+</html>

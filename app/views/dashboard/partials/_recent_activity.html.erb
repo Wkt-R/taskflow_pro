@@ -1,0 +1,39 @@
+<div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-lg">
+  <h2 class="text-xl font-semibold text-white mb-6">Recent Activity</h2>
+  
+  <div class="space-y-4">
+    <% if @recent_activity.any? %>
+      <% @recent_activity.each do |activity| %>
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="h-4 w-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-white text-sm">
+              <span class="font-medium"><%= activity.title %></span>
+              <span class="text-gray-400"> updated in </span>
+              <span class="font-medium"><%= activity.project_name %></span>
+            </p>
+            <div class="flex items-center space-x-2 mt-1">
+              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <%= activity.status_badge_color %> text-white">
+                <%= activity.status.humanize %>
+              </span>
+              <p class="text-gray-400 text-xs">
+                <%= time_ago_in_words(activity.updated_at) %> ago
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="text-center py-6">
+        <svg class="mx-auto h-12 w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <p class="mt-2 text-gray-400">No recent activity</p>
+      </div>
+    <% end %>
+  </div>
+</div>
