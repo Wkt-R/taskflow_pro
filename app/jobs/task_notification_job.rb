@@ -15,7 +15,7 @@ class TaskNotificationJob < ApplicationJob
       NotificationMailer.task_assigned(task.project.user, task).deliver_later
     when "due_soon"
       Rails.logger.info "Sending due soon reminder for task #{task.title}"
-      NotificationMailer.task.task_due_reminder(task.project.user, task).delivery_later
+      NotificationMailer.task_due_reminder(task.project.user, task).deliver_later
     end
   end
 end
