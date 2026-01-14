@@ -32,7 +32,7 @@ end
 
 group :development do
   gem "web-console"
-  gem "kamal", "~> 1.3"
+  gem "kamal", "~> 2.8"
 end
 
 group :test do
